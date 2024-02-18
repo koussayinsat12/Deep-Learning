@@ -21,7 +21,7 @@ def predict(X, labels,w):
     return predicted_labels
 
 
-def perceptron(X, y,labels,lr,epochs,init="zeros"):
+def perceptron(X, y,labels,lr,epochs,init="zeros",log=False):
 
     # features of X
     m, n = X.shape
@@ -40,7 +40,8 @@ def perceptron(X, y,labels,lr,epochs,init="zeros"):
     # Training
     for epoch in range(epochs):
         # log training updates
-        print("\nStart of epoch %d" % (epoch,))
+        if log:
+            print("\nStart of epoch %d" % (epoch,))
         start_time = time.time()
 
         # variable to store #misclassified
@@ -60,8 +61,9 @@ def perceptron(X, y,labels,lr,epochs,init="zeros"):
                 w = w + lr * error * x_i
 
         n_miss_list.append(n_miss)
-        print("number of misclassified examples: ", n_miss)
-        print("Time taken: %.2fs" % (time.time() - start_time))
+        if log:
+            print("number of misclassified examples: ", n_miss)
+            print("Time taken: %.2fs" % (time.time() - start_time))
 
     return w, n_miss_list
 
